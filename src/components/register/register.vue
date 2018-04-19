@@ -26,7 +26,7 @@
     </el-row>
     <el-row>
       <el-col>
-        <el-button type="danger" round class="submit" @click="register">注册</el-button>
+        <el-button type="danger" round class="submit">注册</el-button>
       </el-col>
     </el-row>
   </div>

@@ -1,98 +1,19 @@
 import Vue from 'vue'
 import vuex from 'vuex'
-import router from './../router'
+import * as actions from './actions'
+import * as getters from './getters'
+import state from './state'
+import mutations from './mutations'
+import createLogger from 'vuex/dist/logger'
 Vue.use(vuex)
 
+const debug = process.env.NODE_ENV !== 'production'
+
 export default new vuex.Store({
-  state: {
-    articleList: [
-      {
-        title: '热门文章',
-        name: 'article',
-        content: [
-          {
-            title: '测试文章',
-            class: '测试',
-            comment: 16,
-            like: 2,
-            publishDate: '2小时前'
-          },
-          {
-            title: '测试文章',
-            class: '测试',
-            comment: 16,
-            like: 2,
-            publishDate: '2小时前'
-          },
-          {
-            title: '测试文章',
-            class: '测试',
-            comment: 16,
-            like: 2,
-            publishDate: '2小时前'
-          }
-        ]
-      },
-      {
-        title: 'html',
-        name: 'html',
-        content: [
-          {
-            title: '测试文章html',
-            class: '测试',
-            comment: 16,
-            like: 2,
-            publishDate: '2小时前'
-          },
-          {
-            title: '测试文章html',
-            class: '测试',
-            comment: 16,
-            like: 2,
-            publishDate: '2小时前'
-          },
-          {
-            title: '测试文章html',
-            class: '测试',
-            comment: 16,
-            like: 2,
-            publishDate: '2小时前'
-          }
-        ]
-      },
-      {
-        title: 'css',
-        name: 'css',
-        content: [
-          {
-            title: '测试文章css',
-            class: '测试',
-            comment: 16,
-            like: 2,
-            publishDate: '2小时前'
-          },
-          {
-            title: '测试文章css',
-            class: '测试',
-            comment: 16,
-            like: 2,
-            publishDate: '2小时前'
-          },
-          {
-            title: '测试文章css',
-            class: '测试',
-            comment: 16,
-            like: 2,
-            publishDate: '2小时前'
-          }
-        ]
-      }
-    ],
-    activeName: 'html'
-  },
-  mutations: {
-    jump (state, path) {
-      router.push(path)
-    }
-  }
+  actions,
+  getters,
+  state,
+  mutations,
+  strict: debug,
+  plugin: debug ? [createLogger()] : []
 })

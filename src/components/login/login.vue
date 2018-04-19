@@ -22,7 +22,7 @@
       </el-row>
       <el-row>
         <el-col>
-          <el-button type="danger" round class="submit" @click="login">登录</el-button>
+          <el-button type="danger" round class="submit">登录</el-button>
         </el-col>
       </el-row>
       <el-row>

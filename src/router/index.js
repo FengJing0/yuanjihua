@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import myMain from '@/components/myMain'
-import knowledge from '@/components/knowledge'
-import activity from '@/components/activity'
-import articles from '@/components/articles'
-import write from '@/components/write'
-import user from '@/components/user'
-import login from '@/components/login'
-import register from '@/components/register'
+import Index from '@/components/index/index'
+import Knowledge from '@/components/knowledge/knowledge'
+import Activity from '@/components/activity/activity'
+import Articles from '@/components/articles/articles'
+import Write from '@/components//articles/write'
+import User from '@/components/user/user'
+import Login from '@/components/login/login'
+import Register from '@/components/register/register'
 import userRoute from './user.js'
 import knowledgeRoute from './knowledge.js'
 import AtriclesRoute from './articles.js'
@@ -18,42 +18,42 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/myMain'
+      redirect: '/index'
     },
     {
-      path: '/myMain',
-      component: myMain
+      path: '/index',
+      component: Index
     },
     {
       path: '/knowledge',
-      component: knowledge,
+      component: Knowledge,
       children: knowledgeRoute
     },
     {
       path: '/activity',
-      component: activity
+      component: Activity
     },
     {
       path: '/articles',
-      component: articles,
+      component: Articles,
       children: AtriclesRoute
     },
     {
       path: '/write',
-      component: write
+      component: Write
     },
     {
       path: '/user',
-      component: user,
+      component: User,
       children: userRoute
     },
     {
       path: '/login',
-      component: login
+      component: Login
     },
     {
       path: '/register',
-      component: register
+      component: Register
     }
   ]
 })
