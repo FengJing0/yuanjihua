@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-carousel trigger="click" height="500px">
-      <el-carousel-item v-for="(item,index) in $store.state.bannerList" :key="index">
+      <el-carousel-item v-for="(item,index) in bannerList" :key="index">
         <img :src="'../static/img/'+item.imgUrl" alt="">
       </el-carousel-item>
     </el-carousel>
@@ -34,6 +34,21 @@
 <script>
 // import { mapState } from 'vuex'
 export default {
+  data () {
+    return {
+      bannerList: [
+        {
+          imgUrl: 'banner1.jpg'
+        },
+        {
+          imgUrl: 'banner2.jpg'
+        },
+        {
+          imgUrl: 'banner3.jpg'
+        }
+      ]
+    }
+  },
   methods: {
     handleClick (tab, event) {
       console.log(tab, event)

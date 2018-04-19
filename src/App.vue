@@ -8,7 +8,7 @@
             <h2 class="fl">源计划</h2>
           </el-col>
           <el-col :span="14" :offset="2">
-            <el-menu :default-active="$route.name" class="nav" mode="horizontal" active-text-color="#EA0F2D">
+            <el-menu :default-active="$route.path" class="nav" mode="horizontal" active-text-color="#EA0F2D">
               <el-menu-item v-for="(nav,index) in navList"
                             :key="index"
                             :index="nav.route"
@@ -19,7 +19,7 @@
           </el-col>
         </el-row>
       </el-header>
-      <el-main>
+      <el-main class="main">
         <router-view/>
       </el-main>
     </el-container>
@@ -27,15 +27,45 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 export default {
-  computed: {
-    ...mapState({
-      navList: state => state.navList
-    })
-  },
-  mounted () {
-    console.log(this.activeIndex)
+  data () {
+    return {
+      navList: [
+        {
+          name: '首页',
+          route: '/myMain'
+        },
+        {
+          name: '知识体系',
+          route: '/knowledge'
+        },
+        {
+          name: '活动中心',
+          route: '/activity'
+        },
+        {
+          name: '文章',
+          route: '/articles'
+        },
+        {
+          name: '写文章',
+          route: '/write'
+        },
+        {
+          name: '未读消息',
+          route: '/user'
+        },
+        {
+          name: '登录',
+          route: '/login'
+        },
+        {
+          name: '注册',
+          route: '/register'
+        }
+      ]
+    }
   }
 }
 </script>
@@ -46,6 +76,7 @@ export default {
     font-weight: normal;
   }
   a{
+    color:#000;
     text-decoration: none;
   }
   img{
@@ -73,9 +104,10 @@ export default {
   }
   .header{
     /*position: fixed;*/
-    width:100%;
+    /*width:100%;*/
     /*top:0;*/
     /*left:0;*/
+    min-width: 1150px;
     line-height: 60px;
     border:none;
     box-shadow: 0 2px 10px 0 rgba(0,0,0,.1),0 1px rgba(0,0,0,.1);
@@ -95,5 +127,8 @@ export default {
         }
       }
     }
+  }
+  .main{
+    min-width: 1150px;
   }
 </style>
