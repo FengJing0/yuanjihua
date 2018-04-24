@@ -7,7 +7,6 @@
 
 <script>
 import Header from './components/header/header'
-// import { mapState } from 'vuex'
 export default {
   components: { Header }
 }

@@ -16,6 +16,24 @@
           <li class="nav" v-if="!isLogin">
             <router-link to="/register">注册</router-link>
           </li>
+          <li class='nav' v-if='isLogin'>
+            <el-dropdown>
+              <router-link to='/home/baseInfo'>
+                <img v-lazy="'/api/static/data/upload/'+user.avatar" class='avatar'>
+                <span>{{user.nick_name}}</span>
+              </router-link>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item v-for='item in Links' :key='item.route'>
+                  <router-link :to='item.route'>
+                    {{item.text}}
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item @click.native='loginOut'>
+                  退出
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </li>
         </ul>
       </div>
     </div>
@@ -23,26 +41,54 @@
 </template>
 
 <script>
-// import {mapGetters, mapMutations} from 'vuex'
-import {mapGetters} from 'vuex'
+import {mapGetters, mapMutations, mapActions} from 'vuex'
 export default {
   data () {
     return {
-      isLogin: false
     }
   },
-  // methods: {
-  //   ...mapMutations({
-  //     CLEAR_USER: 'CLEAR_USER',
-  //     SET_USER: 'SET_USER'
-  //   })
-  // },
+  methods: {
+    loginOut () {
+      sessionStorage.clear()
+      localStorage.clear()
+      this.clearUser()
+      this.$router.push({
+        path: '/login'
+      })
+    },
+    ...mapMutations({
+      clearUser: 'CLEAR_USER',
+      setUser: 'SET_USER'
+    }),
+    ...mapActions({
+      checkLocal: 'checkLocal',
+      checkSession: 'checkSession'
+    })
+  },
   computed: {
     ...mapGetters({
       Links: 'myLinks',
       user: 'user',
+      isLogin: 'isLogin',
       navList: 'navList'
     })
+  },
+  created () {
+    this.checkLocal('user').then(
+      res => {
+        if (res !== false) {
+          let data = JSON.stringify(res)
+          sessionStorage.setItem('user', data)
+        }
+      }
+    )
+    this.checkSession('user').then(
+      res => {
+        if (res !== false) {
+          this.setUser(res)
+        }
+      }
+    )
   },
   mounted () {
   }

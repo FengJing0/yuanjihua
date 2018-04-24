@@ -1,72 +1,159 @@
 <template>
-    <div>
-      <h4>修改密码</h4>
-      <el-row>
-        <el-col :span="6">
-          <p>手机号 :</p>
-        </el-col>
-        <el-col :span="6">
-          <p></p>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="6">
-          <p>新密码 :</p>
-        </el-col>
-        <el-col :span="6">
-          <el-input v-model="newInput" placeholder="请输入新密码"/>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="6">
-          <p>确认密码 :</p>
-        </el-col>
-        <el-col :span="6">
-          <el-input v-model="againInput" placeholder="请再次输入密码"/>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="6">
-          <p>验证码 :</p>
-        </el-col>
-        <el-col :span="6">
-          <el-input v-model="identifying" placeholder="请输入验证码"/>
-        </el-col>
-        <el-col :span="4" :offset="2">
-          <el-button type="success">获取验证码</el-button>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="8">
-          <el-button type="danger">提交</el-button>
-        </el-col>
-      </el-row>
+  <div class='wrapper'>
+    <div class='title'>
+      修改密码
     </div>
+    <div class='avatar'>
+    </div>
+    <div class='phone'>
+        <span class='title'>
+          手机号:
+        </span>
+      <span class='content'>
+          {{user.mobile}}
+        </span>
+    </div>
+    <div class='newpwd'>
+        <span class='title'>
+          新密码:
+        </span>
+      <span class='content'>
+          <el-input v-model='newPwd' type='password'></el-input>
+        </span>
+    </div>
+    <div class='renewpwd'>
+        <span class='title'>
+          确认密码:
+        </span>
+      <span class='content'>
+          <el-input v-model='newRePwd' type='password'></el-input>
+        </span>
+    </div>
+    <div>
+      <span class='title'>
+        验证码:
+      </span>
+      <span class='content ident'>
+          <el-input v-model='myIdent'></el-input>
+          <Ident :disabled='!checkNewPwd' @test="getIdent" :phone="user.mobile"></Ident>
+        </span>
+    </div>
+    <div>
+      <el-button type='danger' :disabled='!isChecked' @click='changeInfo' class='btn'>提交</el-button>
+    </div>
+  </div>
 </template>
-
 <script>
+import Axios from 'axios'
+import {mapGetters, mapMutations, mapActions} from 'vuex'
+// import {addClass,removeClass} from 'common/js/operateClassName.js'
+// import {parseCode} from 'common/js/parseCodeToJson.js'
+import {checkPwd} from '@/common/js/regExp.js'
+
+import Ident from '@/components/base/ident'
+
 export default {
   data () {
     return {
-      newInput: '',
-      againInput: '',
-      identifying: ''
+      newPwd: '',
+      newRePwd: '',
+      myIdent: '',
+      ident: '',
+      isGetIdent: false
     }
+  },
+  computed: {
+    ...mapGetters({
+      user: 'user'
+    }),
+    checkNewPwd () {
+      return checkPwd(this.newPwd, this.newRePwd) && this.newPwd !== ''
+    },
+    isChecked () {
+      return this.checkNewPwd && this.ident !== '' && this.ident === this.myIdent
+    }
+  },
+  created () {
+  },
+  methods: {
+    getIdent (ident) {
+      this.ident = ident
+      this.isGetIdent = true
+      console.log(this.ident)
+    },
+    changeInfo () {
+      let newInfo = {
+        pwd: this.newPwd,
+        pwd2: this.newRePwd,
+        sms_code: this.ident,
+        mobile: this.user.mobile
+      }
+      Axios.post('/api/static/data/reset.php', newInfo).then(
+        res => {
+          let data = JSON.parse(res.data)
+          if (data.status === 1) {
+            this.setUser(data.data)
+            this.upDate(data.data)
+            this.$message({
+              showClose: true,
+              message: data.info,
+              type: 'success'
+            })
+            // 保存token  session
+          } else {
+            this.$message({
+              showClose: true,
+              message: data.info,
+              type: 'error'
+            })
+          }
+          // this.newPwd = ''
+          // this.newRePwd = ''
+          // this.ident = ''
+        })
+    },
+    ...mapActions({
+      upDate: 'upDate'
+    }),
+    ...mapMutations({
+      setUser: 'SET_USER'
+    })
+  },
+  components: {
+    Ident
   }
 }
 </script>
-
-<style scoped lang="less">
-  h4{
-    padding:5px 0;
-    border-bottom: 1px solid #000;
-  }
-  .el-row{
-    height:60px;
-    line-height: 60px;
-    border-bottom: 1px solid #eee;
-    .el-input{
-      display: block;
-    }
-  }
+<style lang="stylus" scoped>
+  @import '../../common/css/variable.styl';
+  .wrapper
+    padding:30px
+    &>.title
+      border-bottom:1px solid $color-desc
+      line-height:22px
+    &>div
+      padding:11px
+      line-height:40px
+      display :flex
+      border-bottom:1px solid #eee
+      &:last-child
+        border:none
+      .title,.content
+        display inline-block
+      .ident
+        display flex
+        &>div
+          margin-right 30px;
+      .title
+        margin-right:30px
+        width:120px
+        text-align:right
+      .btn
+        margin:10px 0px 0px 150px
+        width:120px
+      .content
+        flex:1
+        &>.el-input
+          width:200px
+          display inline-block
 </style>

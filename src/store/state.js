@@ -1,12 +1,21 @@
 const state = {
   user: {},
+  isLogin: false,
   navList: [
     {name: '首页', route: '/index'},
     {name: '知识体系', route: '/knowledge'},
     {name: '活动中心', route: '/activity'},
     {name: '文章', route: '/articles'},
     {name: '写文章', route: '/write'},
-    {name: '未读消息', route: '/user'}
+    {name: '未读消息', route: '/user/myInfo'}
+  ],
+  myLinks: [
+    {text: '我的信息', route: '/user/userInfo'},
+    {text: '修改密码', route: '/user/resetpwd'},
+    {text: '我的帖子', route: '/user/mynote'},
+    {text: '我的收藏', route: '/user/mycollection'},
+    {text: '我的消息', route: '/user/myInfo'},
+    {text: '我的任务', route: '/user/mytask'}
   ],
   articleList: [
     {

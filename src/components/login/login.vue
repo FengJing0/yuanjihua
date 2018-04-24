@@ -1,88 +1,126 @@
 <template>
-    <div class="main">
-      <h3>欢迎回到源计划</h3>
-      <el-row>
-        <el-col>
-          <el-input v-model="phone" placeholder="请输入登录手机号"></el-input>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col>
-          <el-input v-model="pwd" placeholder="6-16位密码，区分大小写，不能使用空格"></el-input>
-        </el-col>
-      </el-row>
-      <el-row justify="space-between">
-        <el-col :span="12">
-          <el-checkbox v-model="auto">下次自动登录</el-checkbox>
-        </el-col>
-        <el-col :span="12">
-          <router-link to="/user/resetpwd">忘记密码？</router-link>
-          <router-link to="/register" class="register">立即注册</router-link>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col>
-          <el-button type="danger" round class="submit">登录</el-button>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col>
-          <span>使用合作网站账号登录</span>
-        </el-col>
-      </el-row>
+  <div class="login-wrapper">
+    <div class="login">
+      <el-form>
+        <el-form-item class="title">
+          欢迎回到源计划
+        </el-form-item>
+        <el-form-item>
+          <el-input v-model="phone" placeholder="请输入手机号" maxlength=11 autofocus></el-input>
+        </el-form-item>
+        <el-form-item class="pwd">
+          <el-input v-model="pwd" type='password' placeholder="6-16位密码、区分大小写、不能使用空格" minlength=6></el-input>
+        </el-form-item>
+        <div class='autoLogin'>
+          <el-checkbox v-model='checked'>下次自动登录</el-checkbox>
+          <div>
+            <router-link to='/user/resetpwd' class='forget'>忘记密码</router-link>
+            <router-link to='/register' class='reg'>立即注册</router-link>
+          </div>
+        </div>
+        <el-form-item  class='loginBtn'>
+          <el-button type='danger' @click='login'>登录</el-button>
+        </el-form-item>
+        <div class='loginType'>
+          <p>使用合作网站账号登录</p>
+          <span class='icon-wx'></span>
+        </div>
+      </el-form>
     </div>
+  </div>
 </template>
 
 <script>
+import Axios from 'axios'
+import { mapMutations, mapActions } from 'vuex'
+import { checkPhone } from '@/common/js/regExp.js'
+// import {setLocal} from '@/common/js/setlocal'
+
 export default {
   data () {
     return {
-      phone: '',
-      pwd: '',
-      auto: false
+      phone: '13826452581',
+      pwd: '931022',
+      checked: false
     }
   },
   methods: {
     login () {
-      let req = {
-        mobile: this.phone,
-        pwd: this.pwd
+      if (checkPhone(this.phone)) {
+        Axios.post('/api/static/data/login.php', {
+          mobile: this.phone,
+          pwd: this.pwd
+        }).then(
+          res => {
+            let data = res.data
+            if (data.status === 1) {
+              this.$message({
+                showClose: true,
+                message: data.info,
+                type: 'success'
+              })
+              this.setUser(data.data[0])
+              sessionStorage.setItem('user', JSON.stringify(data.data[0]))
+              if (this.checked) {
+                if (data.data != null) {
+                  this.setLocal('user')
+                }
+              }
+              this.$store.commit('jump', {path: '/user'})
+            } else {
+              this.$message({
+                showClose: true,
+                message: data.info,
+                type: 'error'
+              })
+            }
+          }
+        )
       }
-      console.log(JSON.stringify(req))
-      this.$http.post('http://yjhapi.agxx.club/iweb/login/check', JSON.stringify(req)).then(
-        res => {
-          console.log(res)
-        }
-      ).catch(
-        err => console.log('错误：' + err)
-      )
-    }
+    },
+    ...mapMutations({
+      setUser: 'SET_USER'
+      // setLocal: 'setLocal'
+    }),
+    ...mapActions({
+      setLocal: 'setLocal'
+    })
   }
 }
 </script>
 
-<style scoped lang="less">
-  .main{
-    width:300px;
-    padding:30px 60px;
-    margin: 0 auto;
-    box-shadow: 1px 1px 6px 0 rgba(0,0,0,.2);
-    text-align: center;
-    h3{
-      padding:5px 0;
-      border-bottom: 1px solid #000;
-    }
-    .el-col{
-      margin-top: 20px;
-    }
-    a{
-      font-size:14px;
-    }
-    .register{
-      color:#EA0F2D;
-    }
-    .submit{
-      width:200px;
-    }
-  }
+<style lang="stylus">
+  @import '../../common/css/variable.styl';
+  .login-wrapper
+    margin:50px auto
+    width:100%
+    max-width:1100px
+    min-width:960px
+    .login
+      margin:0 auto
+      box-shadow :0px 0px 5px 0px $color-desc
+      padding:30px 60px
+      width:300px
+      .title>div
+        text-align :center
+        font-size:$font-size-normal
+        border-bottom:1px solid $color-title
+      .autoLogin
+        display:flex
+        justify-content space-between
+        margin-bottom: 22px
+        font-size: $font-size-middle
+        .reg
+          color:$color-active
+      .loginBtn>div
+        text-align :center
+        &>button
+          width:70%
+      .loginType
+        font-size: $font-size-small
+        p
+          padding-bottom:10px
+        .icon-wx
+          font-size:36px
+          cursor pointer
 </style>
