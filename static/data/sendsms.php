@@ -15,9 +15,14 @@ $mobile = $input->{'mobile'};
 
 //$input = $input->mobile;
 //echo $input;
+$sms = '';
+for($i=0; $i<6; $i++){
+  $num = mt_rand(0,9);
+  settype($num,'string');
+  $sms .= $num;
+}
 
-$sms = mt_rand(000000, 999999);
-settype($sms,'string');
+
 $res = [];
 if($mobile === ''){
     $res['status'] = 0;

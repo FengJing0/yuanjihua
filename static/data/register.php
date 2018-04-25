@@ -22,7 +22,7 @@ $mobile = $input->{'mobile'};
 $pwd = $input->{'pwd'};
 $sms_code = $input->{'sms_code'};
 $nick_name =  '默认';
-$avatar =  '默认';
+$avatar =  '179783529A347BEFB6665FCD26762E39.jpg';
 $sex =  1;
 $token = getUUID($mobile);
 $select = mysqli_query($conn,"SELECT user_id FROM t_user WHERE mobile=$mobile");
