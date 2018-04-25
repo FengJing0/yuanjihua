@@ -34,7 +34,7 @@ export default {
   created () {
     let data = sessionStorage.getItem('user')
     data = JSON.parse(data)
-    Axios.get('/api/static/data/topicList.php',{
+    Axios.get('/static/data/topicList.php',{
       params: {
         index: false,
         type: 0,

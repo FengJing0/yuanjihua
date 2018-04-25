@@ -54,7 +54,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          Axios.post('/api/static/data/zan.php', {
+          Axios.post('/static/data/zan.php', {
             user_id: this.user.user_id,
             topic_id: row.topic_id,
             type: 'coll'
@@ -95,7 +95,7 @@
         }
       },
       loadList(){
-        Axios.get('/api/static/data/myColl.php', {
+        Axios.get('/static/data/myColl.php', {
           params: {
             user_id: this.user.user_id,
             page: this.page

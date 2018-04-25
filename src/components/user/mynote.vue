@@ -54,7 +54,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        Axios.post('/api/static/data/delete.php', {
+        Axios.post('/static/data/delete.php', {
           user_id: this.user.user_id,
           topic_id: row.topic_id
         }).then(
@@ -94,7 +94,7 @@ export default {
       }
     },
     loadList(){
-      Axios.get('/api/static/data/myNote.php', {
+      Axios.get('/static/data/myNote.php', {
         params: {
           user_id: this.user.user_id,
           page: this.page
@@ -117,7 +117,6 @@ export default {
   },
   created () {
     let data = JSON.parse(sessionStorage.getItem('user'))
-    console.log(data)
     this.user = data
     this.loadList()
   }

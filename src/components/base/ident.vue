@@ -45,11 +45,17 @@ export default {
         }
       }, 1000)
       if (node.disabled === true) {
-        Axios.post('/api/static/data/sendsms.php', {
+        Axios.post('/static/data/sendsms.php', {
           mobile: this.phone
         }).then(res => {
           if (res.data.status === 1) {
             this.ident = res.data.data.code
+            console.log(this.ident)
+            this.$message({
+              message: this.ident,
+              type: 'success',
+              showClose: true
+            })
             this.$emit('test', this.ident)
           }
         })

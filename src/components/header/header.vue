@@ -19,7 +19,7 @@
           <li class='nav' v-if='isLogin'>
             <el-dropdown>
               <router-link to='/home/baseInfo'>
-                <img v-lazy="'/api/static/data/upload/'+user.avatar" class='avatar'>
+                <img v-lazy="'/static/data/upload/'+user.avatar" class='avatar'>
                 <span>{{user.nick_name}}</span>
               </router-link>
               <el-dropdown-menu slot="dropdown">
@@ -79,6 +79,7 @@ export default {
         if (res !== false) {
           let data = JSON.stringify(res)
           sessionStorage.setItem('user', data)
+          this.setUser(data)
         }
       }
     )

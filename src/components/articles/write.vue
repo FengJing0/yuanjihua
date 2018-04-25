@@ -108,7 +108,7 @@ export default {
       Object.assign(para, this.user)
       para.isEdit = this.isEdit
       para.topic_id = this.$route.params.topic_id
-      Axios.post('/api/static/data/writeArticle.php', para).then(
+      Axios.post('/static/data/writeArticle.php', para).then(
         res => {
           let data = res.data
           if (data.status === 1) {
@@ -138,7 +138,7 @@ export default {
     this.user = JSON.parse(sessionStorage.getItem('user'))
     if(this.$route.params.topic_id){
       this.isEdit = true
-      Axios.get('/api/static/data/content.php',{
+      Axios.get('/static/data/content.php',{
         params:{
           topic_id: this.$route.params.topic_id,
           user_id: this.user.user_id

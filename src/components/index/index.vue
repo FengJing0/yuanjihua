@@ -4,7 +4,7 @@
     <el-carousel  trigger="click" class='slider'>
       <el-carousel-item v-for='item in bannerList' :key='item.url'>
         <!--<h2>{{item.title}}</h2>-->
-        <img v-lazy="'/api/static/img/'+item.url">
+        <img v-lazy="'/static/img/'+item.url">
       </el-carousel-item>
     </el-carousel>
   </div>
@@ -17,7 +17,7 @@
     <!--<List @reloadList='reloadList' v-else :pageInfo='articleList.data' :list='articleList' :targetsTech='targets'></List>-->
     <List class='article' v-if='loaded' :isIndex="true" :comment="true"  :targetsTech="targets" :list="topicList" :listCount="listCount"></List>
     <div v-if='!loaded' class='loading'>
-      <img src="../../../static/img/loading.gif">
+      <img src="/static/img/loading.gif">
       <p>资源正在加载中...</p>
     </div>
   </div>
@@ -51,7 +51,7 @@ export default {
   created () {
     let data = sessionStorage.getItem('user')
     data = JSON.parse(data)
-    Axios.get('/api/static/data/topicList.php',{
+    Axios.get('/static/data/topicList.php',{
       params: {
         index: true,
         type: 0,

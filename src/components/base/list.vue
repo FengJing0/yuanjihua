@@ -113,7 +113,7 @@ export default {
       this.load()
     },
     load () {
-      Axios.get('/api/static/data/topicList.php',{
+      Axios.get('/static/data/topicList.php',{
         params: {
           index: this.isIndex,
           page: this.page,

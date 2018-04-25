@@ -51,7 +51,7 @@
       <ul>
         <li v-for='item in commentList' :key='item.date' class='comment-item'>
           <div class='content-wrapper'>
-            <img v-lazy='"/api/static/data/upload/"+item.avatar' class='avatar'>
+            <img v-lazy='"/static/data/upload/"+item.avatar' class='avatar'>
             <div class="comment">
               <p>{{item.nick_name}}:</p>
               <p>{{item.comment}}</p>
@@ -121,7 +121,7 @@
         this.iszan = !this.iszan
       },
       sel (type) {
-        Axios.post('/api/static/data/zan.php',{
+        Axios.post('/static/data/zan.php',{
           topic_id: this.topic_id,
           user_id: this.user.user_id,
           type: type
@@ -149,7 +149,7 @@
         return UnixTimeToDateTime(time);
       },
       sendComment () {
-        Axios.post('/api/static/data/comment.php',{
+        Axios.post('/static/data/comment.php',{
           topic_id: this.topic_id,
           user_id: this.user.user_id,
           comment: this.comment
@@ -176,9 +176,7 @@
     },
     mounted(){
       if(this.user_id != null) {
-        console.log(this.user_id)
-        console.log('ok')
-        Axios.get('/api/static/data/content.php', {
+        Axios.get('/static/data/content.php', {
           params: {
             topic_id: this.topic_id,
             user_id: this.user_id
@@ -187,7 +185,6 @@
           res => {
             let data = res.data
             if (data.status === 1) {
-              console.log(data)
               this.content = data.data
               this.iszan = data.iszan
               this.iscoll = data.iscoll
@@ -204,10 +201,9 @@
       if(data != null){
         this.isLogin = true
         this.user_id = data.user_id
-        console.log(data)
       }
       this.topic_id = this.$route.params.topic_id
-      Axios.get('/api/static/data/commentList.php',{
+      Axios.get('/static/data/commentList.php',{
         params: {
           topic_id: this.topic_id
         }

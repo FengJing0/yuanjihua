@@ -39,15 +39,15 @@ import { checkPhone } from '@/common/js/regExp.js'
 export default {
   data () {
     return {
-      phone: '13826452581',
-      pwd: '931022',
+      phone: '',
+      pwd: '',
       checked: false
     }
   },
   methods: {
     login () {
       if (checkPhone(this.phone)) {
-        Axios.post('/api/static/data/login.php', {
+        Axios.post('static/data/login.php', {
           mobile: this.phone,
           pwd: this.pwd
         }).then(
@@ -66,6 +66,8 @@ export default {
                   this.setLocal('user')
                 }
               }
+              this.phone = ''
+              this.pwd = ''
               this.$store.commit('jump', {path: '/user'})
             } else {
               this.$message({

@@ -33,9 +33,9 @@ import Axios from 'axios'
 export default {
   data () {
     return {
-      phone: '13826452581',
-      pwd: '931022',
-      pwdAgain: '931022',
+      phone: '',
+      pwd: '',
+      pwdAgain: '',
       myIdent: '',
       isGetIdent: false,
       ident: ''
@@ -44,7 +44,7 @@ export default {
   methods: {
     register () {
       if (this.checkForm) {
-        Axios.post('/api/static/data/register.php', {
+        Axios.post('static/data/register.php', {
           mobile: this.phone,
           pwd: this.pwd,
           sms_code: this.myIdent
@@ -57,6 +57,10 @@ export default {
                 message: data.info,
                 type: 'success'
               })
+              this.phone = '',
+              this.pwd = '',
+              this.pwdAgain = '',
+              this.myIdent = '',
               this.$store.commit('jump', {path: '/login'})
             } else {
               this.$message({

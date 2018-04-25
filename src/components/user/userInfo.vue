@@ -5,8 +5,8 @@
     </div>
     <div class='avatar'>
       <!-- 上传组件 -->
-      <el-upload class='upload' action='/api/static/data/upload.php' :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload" :data="{id: user.user_id}">
-        <img v-lazy="'/api/static/data/upload/'+user.avatar">
+      <el-upload class='upload' action='/static/data/upload.php' :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload" :data="{id: user.user_id}">
+        <img v-lazy="'/static/data/upload/'+user.avatar">
         更换头像
       </el-upload>
     </div>
@@ -68,7 +68,7 @@ export default {
   },
   methods: {
     changeInfo () {
-      Axios.post('/api/static/data/update.php', {
+      Axios.post('/static/data/update.php', {
         sex: this.sex,
         nick_name: this.newName,
         token: this.token
@@ -90,8 +90,6 @@ export default {
     }),
     handleAvatarSuccess (res, file) {
       this.avatar = URL.createObjectURL(file.raw)
-      console.log(res)
-      console.log(file)
     },
     beforeAvatarUpload (file) {
       const isJPG = file.type === 'image/jpeg'

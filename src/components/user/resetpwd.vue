@@ -79,7 +79,6 @@ export default {
     getIdent (ident) {
       this.ident = ident
       this.isGetIdent = true
-      console.log(this.ident)
     },
     changeInfo () {
       let newInfo = {
@@ -88,7 +87,7 @@ export default {
         sms_code: this.ident,
         mobile: this.user.mobile
       }
-      Axios.post('/api/static/data/reset.php', newInfo).then(
+      Axios.post('/static/data/reset.php', newInfo).then(
         res => {
           let data = JSON.parse(res.data)
           if (data.status === 1) {
