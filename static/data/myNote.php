@@ -10,7 +10,7 @@ require('init.php');
 //$input = file_get_contents("php://input");
 //
 //$input = json_decode($input);
-@$user_id = $_REQUEST['user_id'];
+@$user_id = $_REQUEST['user_id'] or die('请输入用户id');
 @$page=$_REQUEST['page'];
 if($page==null)
     $page=1;

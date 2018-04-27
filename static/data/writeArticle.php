@@ -15,6 +15,13 @@ settype($input, 'array');
 extract($input);
 $date = time();
 $res = [];
+if($title == null || $content == null || $md_content == null || $type == null || $tech_type == null){
+    $res['status'] = 0;
+    $res['info'] = '上传失败';
+    $res['data'] = '';
+    exit(json_encode($res));
+}
+
 if($isEdit === true){
     $arr = ['title'=>$title, 'content'=>$content, 'md_content'=>$md_content, 'type'=>$type, 'tech_type'=>$tech_type, 'modify_time'=>$date];
     $row = 0;
@@ -25,7 +32,6 @@ if($isEdit === true){
         $size = mysqli_affected_rows($conn);
         $row += $size;
     }
-    $res['text']='update';
 }else{
     $sql = "INSERT INTO t_topic VALUES(null, '$title', '$content', '$md_content', $type, $tech_type, $date, 0, 0, 0, 0, $user_id)";
     $result = mysqli_query($conn, $sql);

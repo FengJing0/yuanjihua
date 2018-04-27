@@ -17,17 +17,23 @@ function getUUID($name){
     return strtoupper(md5($name.$mt.$rn));
 }
 
-
+$res = [];
 $mobile = $input->{'mobile'};
 $pwd = $input->{'pwd'};
 $sms_code = $input->{'sms_code'};
+if($mobile == null || $pwd == null || $sms_code == null){
+    $res['status'] = 0;
+    $res['info'] = '注册失败';
+    $res['data'] = '';
+    exit(json_encode($res));
+}
 $nick_name =  '默认';
 $avatar =  '179783529A347BEFB6665FCD26762E39.jpg';
 $sex =  1;
 $token = getUUID($mobile);
 $select = mysqli_query($conn,"SELECT user_id FROM t_user WHERE mobile=$mobile");
 $row = mysqli_fetch_assoc($select);
-$res = [];
+
 if($row == null){
     $sql = "INSERT INTO t_user VALUES (null,'$mobile','$pwd','$nick_name','$avatar',$sex,'$token')";
     $result = mysqli_query($conn,$sql);

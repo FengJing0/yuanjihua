@@ -9,7 +9,7 @@
           <el-input v-model="phone" placeholder="请输入手机号" maxlength=11 autofocus></el-input>
         </el-form-item>
         <el-form-item class="pwd">
-          <el-input v-model="pwd" type='password' placeholder="请输入6位以上的密码" minlength=6></el-input>
+          <el-input v-model="pwd" type='password' placeholder="6-16位密码、区分大小写、不能使用空格" minlength=6></el-input>
         </el-form-item>
         <el-form-item class="pwdAgain">
           <el-input v-model="pwdAgain" type='password' placeholder="请确认密码" minlength=6></el-input>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { checkPhone, checkPwd, checkIdent } from '@/common/js/regExp.js'
+import { checkPhone, checkPwd } from '@/common/js/regExp.js'
 import Ident from '@/components/base/ident'
 import Axios from 'axios'
 export default {
@@ -44,7 +44,7 @@ export default {
   methods: {
     register () {
       if (this.checkForm) {
-        Axios.post('static/data/register.php', {
+        Axios.post('/static/data/register.php', {
           mobile: this.phone,
           pwd: this.pwd,
           sms_code: this.myIdent
@@ -86,7 +86,7 @@ export default {
       return checkPhone(this.phone)
     },
     checkForm () {
-      return this.checkPhone && checkPwd(this.pwd, this.pwdAgain) && checkIdent(this.myIdent) && this.isGetIdent && this.ident === this.myIdent
+      return this.checkPhone && checkPwd(this.pwd, this.pwdAgain) && this.isGetIdent && this.ident === this.myIdent
     }
   },
   components: {

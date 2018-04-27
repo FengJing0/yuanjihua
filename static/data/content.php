@@ -7,8 +7,8 @@ header('Access-Control-Allow-Methods:POST');
 header('Access-Control-Allow-Headers:x-requested-with,content-type');
 require('init.php');
 //文章详情
-@$topic_id = $_REQUEST['topic_id'];
-@$user_id = $_REQUEST['user_id'];
+@$topic_id = $_REQUEST['topic_id'] or die('请输入文章id');
+@$user_id = $_REQUEST['user_id'] or die('请输入用户id');
 
 $res = [];
 $sql1 = "UPDATE t_topic SET browser_num=browser_num+1 WHERE topic_id=$topic_id";

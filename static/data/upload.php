@@ -17,7 +17,7 @@ function getExt($fn){
     return end($arr);
 }
 
-$id = $_REQUEST['id'];
+$id = $_REQUEST['id'] or die('请输入用户id');
 //$upload = upload()?'保存成功':'保存失败';
 $input = file_get_contents("php://input");
 

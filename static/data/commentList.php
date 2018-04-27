@@ -7,7 +7,7 @@ header('Access-Control-Allow-Methods:POST');
 header('Access-Control-Allow-Headers:x-requested-with,content-type');
 require('init.php');
 //评论列表
-@$topic_id = $_REQUEST['topic_id'];
+@$topic_id = $_REQUEST['topic_id'] or die('请输入文章编号');
 
 
 $sql = "SELECT c.user_id, c.date, c.comment, u.nick_name, u.avatar FROM t_comment c, t_user u WHERE c.user_id=u.user_id AND c.topic_id=$topic_id";

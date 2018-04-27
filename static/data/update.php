@@ -13,6 +13,13 @@ $input = json_decode($input);
 $sex = $input->{'sex'};
 $nick_name = $input->{'nick_name'};
 $token = $input->{'token'};
+$res = [];
+if($sex == null || $nick_name == null || $token == null){
+    $res['status'] = 0;
+    $res['info'] = '更新失败';
+    $res['data'] = '';
+    exit(json_encode($res));
+}
 
 $sql1 = "UPDATE t_user SET nick_name='$nick_name' WHERE token='$token'";
 $result1 = mysqli_query($conn, $sql1);
@@ -23,7 +30,7 @@ $size2 = mysqli_affected_rows($conn);
 $sql3 = "SELECT * FROM t_user WHERE token='$token'";
 $result3 = mysqli_query($conn, $sql3);
 $row = mysqli_fetch_all($result3, MYSQLI_ASSOC);
-$res = [];
+
 if(($result1 && $result2) == true){
     if( $size1+$size2 > 0){
         $res['status'] = 1;

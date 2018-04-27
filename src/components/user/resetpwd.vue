@@ -18,7 +18,7 @@
           新密码:
         </span>
       <span class='content'>
-          <el-input v-model='newPwd' type='password'></el-input>
+          <el-input v-model='newPwd' type='password' placeholder="6-16位密码、区分大小写、不能使用空格"></el-input>
         </span>
     </div>
     <div class='renewpwd'>
@@ -26,7 +26,7 @@
           确认密码:
         </span>
       <span class='content'>
-          <el-input v-model='newRePwd' type='password'></el-input>
+          <el-input v-model='newRePwd' type='password' placeholder="请确认密码"></el-input>
         </span>
     </div>
     <div>
@@ -89,7 +89,7 @@ export default {
       }
       Axios.post('/static/data/reset.php', newInfo).then(
         res => {
-          let data = JSON.parse(res.data)
+          let data = res.data
           if (data.status === 1) {
             this.setUser(data.data)
             this.upDate(data.data)
@@ -98,6 +98,7 @@ export default {
               message: data.info,
               type: 'success'
             })
+            this.$store.commit('jump', {path: '/user/userInfo'})
             // 保存token  session
           } else {
             this.$message({

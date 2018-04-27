@@ -8,9 +8,9 @@ header('Access-Control-Allow-Headers:x-requested-with,content-type');
 require('init.php');
 //文章列表
 @$type = $_REQUEST['type'];
-@$sort = $_REQUEST['sort'];
+@$sort = $_REQUEST['sort'] or die('请输入sort');
 @$page=$_REQUEST['page'];
-@$index =$_REQUEST['index'];
+@$index =$_REQUEST['index'] or die('请输入index');
 if($page==null)
     $page=1;
 $num = ($page - 1) * 10;

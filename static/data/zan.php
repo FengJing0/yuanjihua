@@ -12,6 +12,14 @@ $input = json_decode($input);
 
 settype($input, 'array');
 extract($input);
+$res = [];
+if($type == null || $topic_id == null || $user_id == null){
+    $res['status'] = 0;
+    $res['info'] = '操作失败';
+    $res['data'] = '';
+    exit(json_encode($res));
+}
+
 switch($type){
     case 'zan':
         $table='t_zan';
@@ -29,7 +37,7 @@ switch($type){
 
 
 
-$res = [];
+
 
 $sql = "SELECT $attr FROM $table WHERE topic_id=$topic_id AND user_id=$user_id";
 $result = mysqli_query($conn, $sql);

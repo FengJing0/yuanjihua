@@ -15,6 +15,13 @@ $pwd = $input->{'pwd'};
 $pwd2 = $input->{'pwd2'};
 $sms_code = $input->{'sms_code'};
 $res = [];
+if($mobile == null || $pwd == null || $sms_code == null){
+    $res['status'] = 0;
+    $res['info'] = '注册失败';
+    $res['data'] = '';
+    exit(json_encode($res));
+}
+
 if($pwd === $pwd2){
     $sql = "UPDATE t_user SET pwd='$pwd' WHERE mobile='$mobile'";
     $result = mysqli_query($conn, $sql);
@@ -30,6 +37,7 @@ if($pwd === $pwd2){
         $res['status'] = 0;
         $res['info'] = '修改失败';
         $res['data'] = '';
+        $res['msg'] = $result.$size;
     }
 }else{
     $res['status'] = 0;

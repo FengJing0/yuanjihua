@@ -2,7 +2,7 @@
   <div class="header-wrapper">
     <div>
       <div class="logo-wrapper">
-        <img src="static/img/logo.822452b.png">
+        <img src="/static/img/logo.822452b.png">
         <h2>源计划</h2>
       </div>
       <div class="nav-wrapper">
@@ -77,9 +77,9 @@ export default {
     this.checkLocal('user').then(
       res => {
         if (res !== false) {
+          this.setUser(res)
           let data = JSON.stringify(res)
           sessionStorage.setItem('user', data)
-          this.setUser(data)
         }
       }
     )

@@ -77,7 +77,18 @@ export default {
           let data = res.data
           if (data.status === 1) {
             this.setUser(data.data)
-            this.upDate(data.data)
+            this.upDate('user')
+            this.$message({
+              showClose: true,
+              message: data.info,
+              type: 'success'
+            })
+          }else {
+            this.$message({
+              showClose: true,
+              message: data.info,
+              type: 'error'
+            })
           }
         }
       )
@@ -90,6 +101,31 @@ export default {
     }),
     handleAvatarSuccess (res, file) {
       this.avatar = URL.createObjectURL(file.raw)
+      console.log(res)
+      if(res.status === 1){
+        let user = JSON.parse(sessionStorage.getItem('user'))
+        user.avatar = res.data
+        this.setUser(user)
+        this.upDate('user')
+        console.log(this.user)
+        // console.log(JSON.parse(sessionStorage.getItem('user')))
+        this.$message({
+          showClose: true,
+          message: res.info,
+          type: 'success'
+        })
+        // this.$router.go(0)
+      }else{
+        this.$message({
+          showClose: true,
+          message: res.info,
+          type: 'error'
+        })
+      }
+      // console.log(file)
+      // let data = JSON.parse(sessionStorage.getItem('user'))
+      // data.avatar = this.avatar
+      // this.$router.go(0)
     },
     beforeAvatarUpload (file) {
       const isJPG = file.type === 'image/jpeg'

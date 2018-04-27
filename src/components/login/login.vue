@@ -47,7 +47,7 @@ export default {
   methods: {
     login () {
       if (checkPhone(this.phone)) {
-        Axios.post('static/data/login.php', {
+        Axios.post('/static/data/login.php', {
           mobile: this.phone,
           pwd: this.pwd
         }).then(

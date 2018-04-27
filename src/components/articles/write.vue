@@ -53,9 +53,9 @@ export default {
         content: '',
         type: '',
         tech_type: '',
-        md_content: '',
-        isEdit: false,
+        md_content: ''
       },
+      isEdit: false,
       user: {},
       editorOption: {
         // something config
@@ -106,8 +106,8 @@ export default {
     issue () {
       let para = this.article
       Object.assign(para, this.user)
-      para.isEdit = this.isEdit
       para.topic_id = this.$route.params.topic_id
+      para.isEdit = this.isEdit
       Axios.post('/static/data/writeArticle.php', para).then(
         res => {
           let data = res.data
@@ -162,7 +162,6 @@ export default {
     // this.user = JSON.parse(sessionStorage.getItem('user'))
   },
   mounted () {
-    console.log(this.user)
   }
 }
 </script>

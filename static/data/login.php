@@ -8,18 +8,23 @@ header('Access-Control-Allow-Headers:x-requested-with,content-type');
 require('init.php');
 //登录
 $input = file_get_contents("php://input");
-
+$res = [];
 $input = json_decode($input);
 $mobile = $input->{'mobile'};
 $pwd = $input->{'pwd'};
-
+if($mobile == null || $pwd == null){
+    $res['status'] = 0;
+    $res['info'] = '登录失败';
+    $res['data'] = '';
+    exit(json_encode($res));
+}
 $sql1 = "SELECT * FROM t_user WHERE mobile='$mobile'";
 
 $result1 = mysqli_query($conn, $sql1);
 $row1 = mysqli_fetch_all($result1, MYSQLI_ASSOC);
 
 
-$res = [];
+
 if($row1 != null){
     $sql2 = "SELECT * FROM t_user WHERE mobile='$mobile' AND pwd='$pwd'";
     $result2 = mysqli_query($conn, $sql2);

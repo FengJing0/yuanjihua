@@ -10,7 +10,13 @@ $input = file_get_contents("php://input");
 
 $input = json_decode($input);
 $mobile = $input->{'mobile'};
-
+$res = [];
+if($mobile == null){
+    $res['status'] = 0;
+    $res['info'] = '发送失败';
+    $res['data'] = '';
+    exit(json_encode($res));
+}
 //echo $input;
 
 //$input = $input->mobile;
@@ -23,7 +29,7 @@ for($i=0; $i<6; $i++){
 }
 
 
-$res = [];
+
 if($mobile === ''){
     $res['status'] = 0;
     $res['mobile'] = $mobile;

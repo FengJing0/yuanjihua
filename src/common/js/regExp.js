@@ -9,7 +9,7 @@ export function checkPhone (phone) {
 }
 
 export function checkPwd (pwd, repwd) {
-  let reg = new RegExp(/^\d{6,}$/)
+  let reg = new RegExp(/^[0-9a-zA-Z]{6,16}$/)
   return reg.test(pwd) && pwd === repwd
 }
 
