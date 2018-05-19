@@ -48,7 +48,6 @@
 </template>
 
 <script>
-import Axios from 'axios'
 import { mapActions } from 'vuex'
 import {UnixTimeToDateTime} from '@/common/js/UnixTimeToDateTime.js'
 export default {
@@ -113,7 +112,7 @@ export default {
       this.load()
     },
     load () {
-      Axios.get('/static/data/topicList.php',{
+      this.$axios.get('/static/data/topicList.php',{
         params: {
           index: this.isIndex,
           page: this.page,

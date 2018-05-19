@@ -83,7 +83,7 @@
 
 <script>
   import {mapGetters} from 'vuex'
-  import Axios from 'axios'
+
   import {UnixTimeToDateTime} from '@/common/js/UnixTimeToDateTime.js'
   export default {
     data () {
@@ -121,7 +121,7 @@
         this.iszan = !this.iszan
       },
       sel (type) {
-        Axios.post('/static/data/zan.php',{
+        this.$axios.post('/static/data/zan.php',{
           topic_id: this.topic_id,
           user_id: this.user.user_id,
           type: type
@@ -149,7 +149,7 @@
         return UnixTimeToDateTime(time);
       },
       sendComment () {
-        Axios.post('/static/data/comment.php',{
+        this.$axios.post('/static/data/comment.php',{
           topic_id: this.topic_id,
           user_id: this.user.user_id,
           comment: this.comment
@@ -176,7 +176,7 @@
     },
     mounted(){
       if(this.user_id != null) {
-        Axios.get('/static/data/content.php', {
+        this.$axios.get('/static/data/content.php', {
           params: {
             topic_id: this.topic_id,
             user_id: this.user_id
@@ -203,7 +203,7 @@
         this.user_id = data.user_id
       }
       this.topic_id = this.$route.params.topic_id
-      Axios.get('/static/data/commentList.php',{
+      this.$axios.get('/static/data/commentList.php',{
         params: {
           topic_id: this.topic_id
         }

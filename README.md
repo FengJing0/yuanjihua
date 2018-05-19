@@ -1,30 +1,17 @@
-# yuanjihua
+# 源计划交流社区
+
+## 演示网站 www.ftusix.com
+
+###### ~~如果访问不了请科学上网（逃）~~
+
+### 目前实现功能：
+
+*登录注册
+*发布文章
+*编辑文章
+*文章排序
+*发布评论
+*赞/收藏
 
 
 
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

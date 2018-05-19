@@ -44,7 +44,6 @@
   </div>
 </template>
 <script>
-import Axios from 'axios'
 import {mapGetters, mapMutations, mapActions} from 'vuex'
 // import {addClass,removeClass} from 'common/js/operateClassName.js'
 // import {parseCode} from 'common/js/parseCodeToJson.js'
@@ -87,7 +86,7 @@ export default {
         sms_code: this.ident,
         mobile: this.user.mobile
       }
-      Axios.post('/static/data/reset.php', newInfo).then(
+      this.$axios.post('/static/data/reset.php', newInfo).then(
         res => {
           let data = res.data
           if (data.status === 1) {

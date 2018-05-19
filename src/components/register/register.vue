@@ -29,7 +29,7 @@
 <script>
 import { checkPhone, checkPwd } from '@/common/js/regExp.js'
 import Ident from '@/components/base/ident'
-import Axios from 'axios'
+
 export default {
   data () {
     return {
@@ -44,7 +44,7 @@ export default {
   methods: {
     register () {
       if (this.checkForm) {
-        Axios.post('/static/data/register.php', {
+        this.$axios.post('/static/data/register.php', {
           mobile: this.phone,
           pwd: this.pwd,
           sms_code: this.myIdent

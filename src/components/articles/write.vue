@@ -42,7 +42,6 @@
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
-import Axios from 'axios'
 import {mapGetters} from 'vuex'
 export default {
   data () {
@@ -108,7 +107,7 @@ export default {
       Object.assign(para, this.user)
       para.topic_id = this.$route.params.topic_id
       para.isEdit = this.isEdit
-      Axios.post('/static/data/writeArticle.php', para).then(
+      this.$axios.post('/static/data/writeArticle.php', para).then(
         res => {
           let data = res.data
           if (data.status === 1) {
@@ -138,7 +137,7 @@ export default {
     this.user = JSON.parse(sessionStorage.getItem('user'))
     if(this.$route.params.topic_id){
       this.isEdit = true
-      Axios.get('/static/data/content.php',{
+      this.$axios.get('/static/data/content.php',{
         params:{
           topic_id: this.$route.params.topic_id,
           user_id: this.user.user_id

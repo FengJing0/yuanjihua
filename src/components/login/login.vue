@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import Axios from 'axios'
 import { mapMutations, mapActions } from 'vuex'
 import { checkPhone } from '@/common/js/regExp.js'
 // import {setLocal} from '@/common/js/setlocal'
@@ -47,7 +46,7 @@ export default {
   methods: {
     login () {
       if (checkPhone(this.phone)) {
-        Axios.post('/static/data/login.php', {
+        this.$axios.post('/static/data/login.php', {
           mobile: this.phone,
           pwd: this.pwd
         }).then(

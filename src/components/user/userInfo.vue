@@ -42,7 +42,6 @@
 </template>
 <script>
 import {mapGetters, mapMutations, mapActions} from 'vuex'
-import Axios from 'axios'
 export default {
   data () {
     return {
@@ -68,7 +67,7 @@ export default {
   },
   methods: {
     changeInfo () {
-      Axios.post('/static/data/update.php', {
+      this.$axios.post('/static/data/update.php', {
         sex: this.sex,
         nick_name: this.newName,
         token: this.token

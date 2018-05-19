@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import Axios from 'axios'
 export default {
   data () {
     return {
@@ -45,7 +44,7 @@ export default {
         }
       }, 1000)
       if (node.disabled === true) {
-        Axios.post('/static/data/sendsms.php', {
+        this.$axios.post('/static/data/sendsms.php', {
           mobile: this.phone
         }).then(res => {
           if (res.data.status === 1) {

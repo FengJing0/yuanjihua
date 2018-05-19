@@ -11,7 +11,7 @@
 <script>
 import List from '../base/list'
 import { mapGetters } from 'vuex'
-import Axios from 'axios'
+
 export default {
   data () {
     return {
@@ -34,7 +34,7 @@ export default {
   created () {
     let data = sessionStorage.getItem('user')
     data = JSON.parse(data)
-    Axios.get('/static/data/topicList.php',{
+    this.$axios.get('/static/data/topicList.php',{
       params: {
         index: false,
         type: 0,
