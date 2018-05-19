@@ -20,6 +20,8 @@ import knowledgeRoute from './knowledge.js'
 
 import Topic from '@/components/articles/topic'
 
+import NotFount from '@/components/notFount'
+
 Vue.use(Router)
 
 let router = new Router({
@@ -122,6 +124,10 @@ let router = new Router({
     {
       path: '/register',
       component: Register
+    },
+    {
+      path: '*',
+      component: NotFount
     }
   ]
 })
