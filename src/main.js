@@ -11,17 +11,15 @@ import 'element-ui/lib/theme-chalk/index.css'
 import Axios from 'axios'
 
 Vue.config.productionTip = false
-Axios.defaults.baseURL = 'http://127.0.0.1'
+// Axios.defaults.baseURL = 'http://127.0.0.1'
 
 Vue.prototype.$axios = Axios;
 Vue.use(ElementUI)
 Vue.use(VueQuillEditor)
-Vue.use(VueLazyLoad
-  // , {
-  // loading: require('./common/imgs/loading.gif'),
-//   error: require('./common/imgs/error.gif')
-// }
-)
+Vue.use(VueLazyLoad, {
+  loading: require('./common/imgs/loading.gif'),
+  error: require('./common/imgs/error.gif')
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
